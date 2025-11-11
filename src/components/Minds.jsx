@@ -4,7 +4,7 @@ import "./Minds.css"; // estilos personalizados
 // --- Configuración API Gemini ---
 const API_URL_BASE =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
-const API_KEY = "AIzaSyD3hdJN4emKLxcEQBqS6llUz9ikj6E3fPo"; // ⚠️ reemplazá si es necesario
+const API_KEY = ""; // ⚠️ reemplazá si es necesario
 
 // --- Definición de Roles ---
 const PERSONAS = {
