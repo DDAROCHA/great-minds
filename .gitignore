@@ -1,0 +1,50 @@
+# ================================= #
+# 1. Dependencias y Archivos Locales #
+# ================================= #
+
+# Dependencias de Node.js
+/node_modules
+
+# Archivos de caché de npm, yarn, pnpm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Archivos de caché del OS
+.DS_Store
+Thumbs.db
+
+# ================================= #
+# 2. Archivos de Build y Salida     #
+# ================================= #
+
+# La carpeta de producción generada por React (CRA/Vite)
+# Netlify usa el contenido de esta carpeta para el deploy
+/build
+/dist
+/out
+
+# ================================= #
+# 3. Archivos de Entorno y Claves   #
+# ================================= #
+
+# Variables de entorno y claves privadas
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# ================================= #
+# 4. Archivos de IDE y Testing      #
+# ================================= #
+
+# Carpeta de VSCode
+.vscode/
+
+# Archivos de coverage de testing
+/coverage
+
+# Archivos temporales de React
+.web-app-manifest.json

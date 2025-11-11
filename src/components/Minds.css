@@ -1,0 +1,161 @@
+/* ======== General ======== */
+body, html {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* ======== Header ======== */
+.app-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #8b5cf6;
+  margin: 0;
+}
+
+.app-header p {
+  font-size: 1.1rem;
+  color: #94a3b8;
+}
+
+/* ======== Chat Container ======== */
+.chat-container {
+  width: 90%;
+  max-width: 900px;
+  height: 400px;
+  background-color: #1e293b;
+  border-radius: 1rem;
+  padding: 1rem;
+  overflow-y: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-empty {
+  text-align: center;
+  color: #64748b;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* ======== Chat Messages ======== */
+.chat-message {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.chat-message.left {
+  justify-content: flex-start;
+}
+
+.chat-message.right {
+  justify-content: flex-end;
+}
+
+/* ======== Chat Bubble ======== */
+.chat-bubble {
+  padding: 1rem;
+  border-radius: 0.8rem;
+  max-width: 80%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.chat-bubble.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Mensajes Gemini */
+.chat-message.gemini .chat-bubble {
+  background-color: #4f46e5;
+  color: #f8fafc;
+}
+
+/* Mensajes GPT */
+.chat-message.gpt .chat-bubble {
+  background-color: #334155;
+  color: #e2e8f0;
+}
+
+.chat-persona {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.chat-text {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* ======== Controls ======== */
+.controls {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls button {
+  background-color: #16a34a;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.controls button:hover {
+  background-color: #22c55e;
+}
+
+.error {
+  margin-top: 0.8rem;
+  color: #f87171;
+  font-size: 0.9rem;
+}
+
+/* ======== Footer ======== */
+.footer-note {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+}
+
+/* ======== Animations ======== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar (estilo suave) */
+.chat-container::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-container::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 3px;
+}
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
