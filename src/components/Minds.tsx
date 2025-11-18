@@ -105,7 +105,7 @@ const Minds: React.FC = () => {
   const [savedConversations, setSavedConversations] = useState<Conversation[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [typing, setTyping] = useState(false);
-  const [round, setRound] = useState(0);
+  //const [round, setRound] = useState(0);
 
   const stopRef = useRef(false);
   const messagesRef = useRef<Message[]>(messages);
@@ -136,7 +136,7 @@ const Minds: React.FC = () => {
 
     stopRef.current = true;
     setIsRunning(false);
-    setRound(0);
+    //setRound(0);
 
     setTopic(c.topic);
     setMessages(c.messages);
@@ -168,7 +168,7 @@ const Minds: React.FC = () => {
     setMessages([]);
     setIsRunning(true);
     stopRef.current = false;
-    setRound(0);
+    //setRound(0);
 
     const startMsg: Message = {
       persona: "system",
@@ -183,7 +183,7 @@ const Minds: React.FC = () => {
     try {
       for (let i = 0; i < TOTAL_ROUNDS; i++) {
         if (stopRef.current) break;
-        setRound(i + 1);
+        //setRound(i + 1);
 
         // GPT
         setTyping(true);
@@ -263,11 +263,13 @@ const Minds: React.FC = () => {
 
   const [showAboutModal, setShowAboutModal] = useState(false);
 
+  {/*
   const clearHistory = () => {
     setSavedConversations([]);
     setMessages([]);
     setTopic("");
   };
+  */}
 
   const renderMessage = (m: Message, i: number) => {
     const isSystem = m.persona === "system";
