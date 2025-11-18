@@ -1,6 +1,83 @@
 import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from 'framer-motion';
+import { X as CloseIcon, Info as InfoIcon } from 'lucide-react';
 import "./Minds.css";
 import { getConversations, saveConversation, askAI } from "../services/conversations";
+import cerebro from '../cerebro.png';
+
+// ==============================================
+// MODAL: About Modal (Modal 'Acerca de')
+// ==============================================
+interface AboutModalProps {
+    onClose: () => void;
+}
+
+const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => (
+    <motion.div 
+        className="modal-overlay"
+        onClick={onClose}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+    >
+        <motion.div 
+            className="modal-content about-modal" 
+            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+        >
+            <button className="modal-close-btn" onClick={onClose}>
+                <CloseIcon size={24} />
+            </button>
+
+           <button className="modal-close-btn" onClick={onClose}><CloseIcon size={24} /></button>
+            <h4>About Great Minds App</h4>
+            <p>
+                This application is an interactive experiment designed to bring my portfolio to life. 
+                Every project, conversation, and interaction you see here is powered by a custom full-stack 
+                ecosystem built from scratch — combining modern web technologies with real-time AI responses.
+            </p>
+
+            <h5>Technology Stack</h5>
+            <ul>
+                <li><strong>Frontend:</strong> React + TypeScript running on a lightweight Node.js environment</li>
+                <li><strong>Styling:</strong> CSS Modules and Tailwind CSS for fast, responsive UI development</li>
+                <li><strong>Backend:</strong> Node.js / Express deployed on Render</li>
+                <li><strong>Database:</strong> MongoDB Atlas (Serverless) for seamless cloud storage</li>
+                <li><strong>AI Engine:</strong> Gemini Base for dynamic, on-the-fly conversational generation</li>
+                <li><strong>Tools:</strong> Framer Motion for smooth animations, Lucide React for clean and minimal icons</li>
+            </ul>
+
+            <h5>How to Use This App</h5>
+            <ul>
+                <li>Click <strong>“Clear History”</strong> to reset the app and wipe previously saved sessions.</li>
+                <li>Use the <strong>“Select a saved conversation”</strong> dropdown to revisit any past AI debate stored in MongoDB.</li>
+                <li>The conversation list updates automatically whenever a new session is completed.</li>
+                <li>Enter a topic and click <strong>“Start Conversation”</strong> to generate a fresh AI-to-AI debate.</li>
+            </ul>
+
+            <h5>Why I Built This</h5>
+            <p>
+                I created this project as a playful yet technical experiment: a place where two powerful AIs — 
+                <strong>ChatGPT</strong> and <strong>Gemini</strong> — face off in fully automated, topic-driven conversations. 
+                The goal was to explore how different AI systems “think,” how their tones diverge, and how far a 
+                custom full-stack setup can push real-time generative interaction.
+            </p>
+            <p>
+                Beyond the entertainment factor, this app also serves as a personal lab: a space to test deployment pipelines, 
+                API orchestration, UI animations, scalable data storage, and efficient communication between multiple models. 
+                It represents my passion for building systems that are both technically solid and genuinely fun to use.
+            </p>
+
+            <footer>© 2025 Diego Da Rocha — Portfolio Demo</footer>
+
+
+        </motion.div>
+    </motion.div>
+);
+
+
 
 interface Message {
   persona: string;
@@ -184,6 +261,8 @@ const Minds: React.FC = () => {
     } catch {}
   };
 
+  const [showAboutModal, setShowAboutModal] = useState(false);
+
   const clearHistory = () => {
     setSavedConversations([]);
     setMessages([]);
@@ -213,17 +292,33 @@ const Minds: React.FC = () => {
     );
   };
 
+
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>Great Minds 🧠💡</h1>
-        <p>Witness two powerful AIs debating.</p>
+        <img src={cerebro} alt="Logo" className="header-cerebro" />
+
+        <div className="header-text-group">
+          <h1>Great Minds</h1>
+          <p>Witness two powerful AIs debating.</p>
+        </div>
+
+        <motion.button 
+              onClick={() => setShowAboutModal(true)}
+              className="clear-btn"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+          >
+              <InfoIcon size={18} style={{marginRight: '5px'}}/> About
+        </motion.button>
       </header>
 
+{/*
       <div className="top-bar">
         <div className="round-counter">{isRunning ? `Round ${round} / ${TOTAL_ROUNDS}` : ""}</div>
         <button className="clear-btn" onClick={clearHistory}>Clear History</button>
       </div>
+*/}
 
       <div className="conversation-header">
         <select onChange={(e) => handleSelectConversation(e.target.value)} defaultValue="">
@@ -267,6 +362,14 @@ const Minds: React.FC = () => {
           </div>
         )}
       </div>
+
+      <AnimatePresence>
+                {showAboutModal && (
+                    <AboutModal 
+                        onClose={() => setShowAboutModal(false)}
+                    />
+                )}
+      </AnimatePresence>
 
       <footer className="footer-note">Conversations stored in MongoDB 🛢️</footer>
     </div>

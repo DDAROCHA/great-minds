@@ -23,13 +23,79 @@ body {
 }
 
 /* --------------------------- */
-/* CONTAINER */
+/* HEADER */
+/* --------------------------- */
+
+.app-header {
+  /* ¡CLAVE!: Usar Flexbox para alinear horizontalmente */
+  display: flex;
+  justify-content: space-between; /* Espacia la imagen, el grupo de texto y el botón */
+  align-items: center; /* Centra verticalmente todos los elementos */
+  text-align: left; /* Restablecer para que solo el grupo central se centre */
+}
+
+/* Nuevo contenedor para los textos */
+.header-text-group {
+    /* CLAVE: Asegura que los textos dentro se centren horizontalmente */
+    text-align: center; 
+    /* Permite que este grupo crezca más que los otros elementos */
+    flex-grow: 1; 
+    /* Mueve un poco el grupo para compensar el margen del logo */
+    margin-left: -50px; 
+}
+
+
+.app-header h1 {
+  /* Eliminar margin-top/bottom si existen */
+  margin: 0; 
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #a5b4fc;
+}
+
+.app-header p {
+  /* Eliminar margin-top/bottom si existen */
+  margin: 0;
+  color: #9ca3af;
+  margin-top: 0.3rem;
+}
+
+/* --------------------------- */
+/* LOGO */
 /* --------------------------- */
 
 .header-cerebro {
-  height: 100px;
-  margin-right: 10px;
+  /* Se mantiene la altura, pero se ajusta el margen */
+  height: 80px; /* Reducí la altura para un mejor look */
+  margin-right: 15px; /* Espacio después del logo */
+  min-width: 80px; /* Evita que el logo se haga más pequeño */
 }
+
+/* Ajuste al botón de Info para que no use estilos de 'clear-btn' si no queremos */
+.info-btn {
+  /* Asegura que el botón de info no se estire */
+  align-self: flex-start; 
+  /* Asegura que tenga el color correcto */
+  background: transparent;
+  border: none;
+  color: #c7d2fe;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex; /* Para alinear el ícono y el texto */
+  align-items: center;
+  margin-top: -30px; /* Mueve el botón de info más cerca del borde superior si es necesario */
+}
+.info-btn:hover {
+    background: transparent;
+    color: #a5b4fc;
+}
+
+/* --------------------------- */
+/* CONTAINER */
+/* --------------------------- */
+
 
 .app-container {
   background: rgba(17, 24, 39, 1);
@@ -44,24 +110,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-/* --------------------------- */
-/* HEADER */
-/* --------------------------- */
-
-.app-header {
-  text-align: center;
-}
-
-.app-header h1 {
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: #a5b4fc;
-}
-
-.app-header p {
-  color: #9ca3af;
-  margin-top: 0.3rem;
-}
 
 /* --------------------------- */
 /* TOP BAR */

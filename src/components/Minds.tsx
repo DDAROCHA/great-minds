@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
-import { X as CloseIcon, Image as ImageIcon, Info as InfoIcon, Loader2 as LoaderIcon } from 'lucide-react';
+import { X as CloseIcon, Info as InfoIcon } from 'lucide-react';
 import "./Minds.css";
 import { getConversations, saveConversation, askAI } from "../services/conversations";
 import cerebro from '../cerebro.png';
@@ -297,8 +297,11 @@ const Minds: React.FC = () => {
     <div className="app-container">
       <header className="app-header">
         <img src={cerebro} alt="Logo" className="header-cerebro" />
-        <h1>Great Minds</h1>
-        <p>Witness two powerful AIs debating.</p>
+
+        <div className="header-text-group">
+          <h1>Great Minds</h1>
+          <p>Witness two powerful AIs debating.</p>
+        </div>
 
         <motion.button 
               onClick={() => setShowAboutModal(true)}
@@ -310,10 +313,12 @@ const Minds: React.FC = () => {
         </motion.button>
       </header>
 
+{/*
       <div className="top-bar">
         <div className="round-counter">{isRunning ? `Round ${round} / ${TOTAL_ROUNDS}` : ""}</div>
         <button className="clear-btn" onClick={clearHistory}>Clear History</button>
       </div>
+*/}
 
       <div className="conversation-header">
         <select onChange={(e) => handleSelectConversation(e.target.value)} defaultValue="">
