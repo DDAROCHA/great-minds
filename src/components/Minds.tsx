@@ -263,14 +263,6 @@ const Minds: React.FC = () => {
 
   const [showAboutModal, setShowAboutModal] = useState(false);
 
-  {/*
-  const clearHistory = () => {
-    setSavedConversations([]);
-    setMessages([]);
-    setTopic("");
-  };
-  */}
-
   const renderMessage = (m: Message, i: number) => {
     const isSystem = m.persona === "system";
     const isGem = m.persona.includes("Gemini");
@@ -314,13 +306,6 @@ const Minds: React.FC = () => {
               <InfoIcon size={18} style={{marginRight: '5px'}}/> About
         </motion.button>
       </header>
-
-{/*
-      <div className="top-bar">
-        <div className="round-counter">{isRunning ? `Round ${round} / ${TOTAL_ROUNDS}` : ""}</div>
-        <button className="clear-btn" onClick={clearHistory}>Clear History</button>
-      </div>
-*/}
 
       <div className="conversation-header">
         <select onChange={(e) => handleSelectConversation(e.target.value)} defaultValue="">
