@@ -24,5 +24,9 @@ export async function askAI(topic: string, messages: any[]) {
     body: JSON.stringify({ topic, messages }),
   });
 
-  return await res.json();
+  const data = await res.json();
+
+  console.log("🧠 askAI RAW response:", data);
+
+  return data.reply ?? "";
 }

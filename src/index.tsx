@@ -9,9 +9,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Minds />
-  </React.StrictMode>
+  //<React.StrictMode>
+  <Minds />
+  //</React.StrictMode>
 );
 
 // Si querés medir rendimiento (opcional)

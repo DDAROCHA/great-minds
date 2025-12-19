@@ -1,83 +1,119 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from 'framer-motion';
-import { X as CloseIcon, Info as InfoIcon } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
+import { X as CloseIcon, Info as InfoIcon } from "lucide-react";
 import "./Minds.css";
-import { getConversations, saveConversation, askAI } from "../services/conversations";
-import cerebro from '../cerebro.png';
+import {
+  getConversations,
+  saveConversation,
+  askAI,
+} from "../services/conversations";
+import cerebro from "../cerebro.png";
 
 // ==============================================
 // MODAL: About Modal (Modal 'Acerca de')
 // ==============================================
 interface AboutModalProps {
-    onClose: () => void;
+  onClose: () => void;
 }
 
 const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => (
-    <motion.div 
-        className="modal-overlay"
-        onClick={onClose}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+  <motion.div
+    className="modal-overlay"
+    onClick={onClose}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+  >
+    <motion.div
+      className="modal-content about-modal"
+      onClick={(e) => e.stopPropagation()}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
     >
-        <motion.div 
-            className="modal-content about-modal" 
-            onClick={(e) => e.stopPropagation()}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-        >
-            <button className="modal-close-btn" onClick={onClose}>
-                <CloseIcon size={24} />
-            </button>
+      <button className="modal-close-btn" onClick={onClose}>
+        <CloseIcon size={24} />
+      </button>
 
-           <button className="modal-close-btn" onClick={onClose}><CloseIcon size={24} /></button>
-            <h4>About Great Minds App</h4>
-            <p>
-                This application is an interactive experiment designed to bring my portfolio to life. 
-                Every project, conversation, and interaction you see here is powered by a custom full-stack 
-                ecosystem built from scratch — combining modern web technologies with real-time AI responses.
-            </p>
+      <button className="modal-close-btn" onClick={onClose}>
+        <CloseIcon size={24} />
+      </button>
+      <h4>About Great Minds App</h4>
+      <p>
+        This application is an interactive experiment designed to bring my
+        portfolio to life. Every project, conversation, and interaction you see
+        here is powered by a custom full-stack ecosystem built from scratch —
+        combining modern web technologies with real-time AI responses.
+      </p>
 
-            <h5>Technology Stack</h5>
-            <ul>
-                <li><strong>Frontend:</strong> React + TypeScript running on a lightweight Node.js environment</li>
-                <li><strong>Styling:</strong> CSS Modules and Tailwind CSS for fast, responsive UI development</li>
-                <li><strong>Backend:</strong> Node.js / Express deployed on Render</li>
-                <li><strong>Database:</strong> MongoDB Atlas (Serverless) for seamless cloud storage</li>
-                <li><strong>AI Engine:</strong> Gemini Base for dynamic, on-the-fly conversational generation</li>
-                <li><strong>Tools:</strong> Framer Motion for smooth animations, Lucide React for clean and minimal icons</li>
-            </ul>
+      <h5>Technology Stack</h5>
+      <ul>
+        <li>
+          <strong>Frontend:</strong> React + TypeScript running on a lightweight
+          Node.js environment
+        </li>
+        <li>
+          <strong>Styling:</strong> CSS Modules and Tailwind CSS for fast,
+          responsive UI development
+        </li>
+        <li>
+          <strong>Backend:</strong> Node.js / Express deployed on Render
+        </li>
+        <li>
+          <strong>Database:</strong> MongoDB Atlas (Serverless) for seamless
+          cloud storage
+        </li>
+        <li>
+          <strong>AI Engine:</strong> Gemini Base for dynamic, on-the-fly
+          conversational generation
+        </li>
+        <li>
+          <strong>Tools:</strong> Framer Motion for smooth animations, Lucide
+          React for clean and minimal icons
+        </li>
+      </ul>
 
-            <h5>How to Use This App</h5>
-            <ul>
-                <li>Click <strong>“Clear History”</strong> to reset the app and wipe previously saved sessions.</li>
-                <li>Use the <strong>“Select a saved conversation”</strong> dropdown to revisit any past AI debate stored in MongoDB.</li>
-                <li>The conversation list updates automatically whenever a new session is completed.</li>
-                <li>Enter a topic and click <strong>“Start Conversation”</strong> to generate a fresh AI-to-AI debate.</li>
-            </ul>
+      <h5>How to Use This App</h5>
+      <ul>
+        <li>
+          Click <strong>“Clear History”</strong> to reset the app and wipe
+          previously saved sessions.
+        </li>
+        <li>
+          Use the <strong>“Select a saved conversation”</strong> dropdown to
+          revisit any past AI debate stored in MongoDB.
+        </li>
+        <li>
+          The conversation list updates automatically whenever a new session is
+          completed.
+        </li>
+        <li>
+          Enter a topic and click <strong>“Start Conversation”</strong> to
+          generate a fresh AI-to-AI debate.
+        </li>
+      </ul>
 
-            <h5>Why I Built This</h5>
-            <p>
-                I created this project as a playful yet technical experiment: a place where two powerful AIs — 
-                <strong>ChatGPT</strong> and <strong>Gemini</strong> — face off in fully automated, topic-driven conversations. 
-                The goal was to explore how different AI systems “think,” how their tones diverge, and how far a 
-                custom full-stack setup can push real-time generative interaction.
-            </p>
-            <p>
-                Beyond the entertainment factor, this app also serves as a personal lab: a space to test deployment pipelines, 
-                API orchestration, UI animations, scalable data storage, and efficient communication between multiple models. 
-                It represents my passion for building systems that are both technically solid and genuinely fun to use.
-            </p>
+      <h5>Why I Built This</h5>
+      <p>
+        I created this project as a playful yet technical experiment: a place
+        where two powerful AIs —<strong>ChatGPT</strong> and{" "}
+        <strong>Gemini</strong> — face off in fully automated, topic-driven
+        conversations. The goal was to explore how different AI systems “think,”
+        how their tones diverge, and how far a custom full-stack setup can push
+        real-time generative interaction.
+      </p>
+      <p>
+        Beyond the entertainment factor, this app also serves as a personal lab:
+        a space to test deployment pipelines, API orchestration, UI animations,
+        scalable data storage, and efficient communication between multiple
+        models. It represents my passion for building systems that are both
+        technically solid and genuinely fun to use.
+      </p>
 
-            <footer>© 2025 Diego Da Rocha — Portfolio Demo</footer>
-
-
-        </motion.div>
+      <footer>© 2025 Diego Da Rocha — Portfolio Demo</footer>
     </motion.div>
+  </motion.div>
 );
-
-
 
 interface Message {
   persona: string;
@@ -102,7 +138,9 @@ const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const Minds: React.FC = () => {
   const [topic, setTopic] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
-  const [savedConversations, setSavedConversations] = useState<Conversation[]>([]);
+  const [savedConversations, setSavedConversations] = useState<Conversation[]>(
+    []
+  );
   const [isRunning, setIsRunning] = useState(false);
   const [typing, setTyping] = useState(false);
   //const [round, setRound] = useState(0);
@@ -146,13 +184,19 @@ const Minds: React.FC = () => {
     }, 30);
   };
 
-  function buildInstruction(persona: string, topic: string, other: string, prevmessage: string) {
+  function buildInstruction(
+    persona: string,
+    topic: string,
+    other: string,
+    prevmessage: string
+  ) {
     return `You are ${persona}. Reply to ${other} and his opinion ${prevmessage} with one short witty sentence about "${topic}". Keep it funny.`;
   }
 
   async function askSafe(topic: string, text: string, persona: string) {
     const res = await askAI(topic, [{ text }]);
-    const t = (res?.reply || "").trim();
+
+    const t = res.trim();
 
     if (!t)
       return persona.includes("Gemini")
@@ -178,7 +222,6 @@ const Minds: React.FC = () => {
 
     setMessages([startMsg]);
     messagesRef.current = [startMsg];
-    
 
     try {
       for (let i = 0; i < TOTAL_ROUNDS; i++) {
@@ -189,10 +232,14 @@ const Minds: React.FC = () => {
         setTyping(true);
         await wait(200);
 
-        const instrGPT = buildInstruction(CHATGPT_NAME, topic, GEMINI_NAME, messagesRef.current[messagesRef.current.length - 1].text);
+        const instrGPT = buildInstruction(
+          CHATGPT_NAME,
+          topic,
+          GEMINI_NAME,
+          messagesRef.current[messagesRef.current.length - 1].text
+        );
 
         const gptText = await askSafe(topic, instrGPT, CHATGPT_NAME);
-
 
         const gptMsg: Message = {
           persona: CHATGPT_NAME,
@@ -211,7 +258,12 @@ const Minds: React.FC = () => {
         setTyping(true);
         await wait(200);
 
-        const instrGem = buildInstruction(GEMINI_NAME, topic, CHATGPT_NAME, messagesRef.current[messagesRef.current.length - 1].text);
+        const instrGem = buildInstruction(
+          GEMINI_NAME,
+          topic,
+          CHATGPT_NAME,
+          messagesRef.current[messagesRef.current.length - 1].text
+        );
 
         //console.log("🟣 askSafe REQUEST for Gemini:", instrGem );
 
@@ -286,6 +338,20 @@ const Minds: React.FC = () => {
     );
   };
 
+  async function debugGemini() {
+    console.log("🧪 DEBUG GEMINI CLICK");
+
+    //const res = await askAI("Debug", [{ text: "Ping" }]);
+
+    const res = await askAI("Pelos de Gatos", [
+      { text: "Hablame de esto en 2 renglones" },
+    ]);
+
+    console.log("🧠 DEBUG RESPONSE:", res);
+
+    //Este es el Boton de prueba para Gemini
+    //<button onClick={debugGemini}>🔥 Debug Gemini</button>
+  }
 
   return (
     <div className="app-container">
@@ -297,22 +363,26 @@ const Minds: React.FC = () => {
           <p>Witness two powerful AIs debating.</p>
         </div>
 
-        <motion.button 
-              onClick={() => setShowAboutModal(true)}
-              className="clear-btn"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-          >
-              <InfoIcon size={18} style={{marginRight: '5px'}}/> About
+        <motion.button
+          onClick={() => setShowAboutModal(true)}
+          className="clear-btn"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <InfoIcon size={18} style={{ marginRight: "5px" }} /> About
         </motion.button>
       </header>
 
       <div className="conversation-header">
-        <select onChange={(e) => handleSelectConversation(e.target.value)} defaultValue="">
+        <select
+          onChange={(e) => handleSelectConversation(e.target.value)}
+          defaultValue=""
+        >
           <option value="">📚 Select a saved conversation...</option>
           {savedConversations.map((c) => (
             <option key={c._id} value={c._id}>
-              {c.topic} – {c.createdAt ? new Date(c.createdAt).toLocaleString() : ""}
+              {c.topic} –{" "}
+              {c.createdAt ? new Date(c.createdAt).toLocaleString() : ""}
             </option>
           ))}
         </select>
@@ -332,14 +402,18 @@ const Minds: React.FC = () => {
             Start Conversation
           </button>
         ) : (
-          <button className="stop-button" onClick={stopChat}>Stop</button>
+          <button className="stop-button" onClick={stopChat}>
+            Stop
+          </button>
         )}
       </div>
 
       <div className="chat-container" ref={chatRef}>
-        {messages.length === 0
-          ? <div className="chat-empty">No messages yet.</div>
-          : messages.map((m, i) => renderMessage(m, i))}
+        {messages.length === 0 ? (
+          <div className="chat-empty">No messages yet.</div>
+        ) : (
+          messages.map((m, i) => renderMessage(m, i))
+        )}
 
         {typing && (
           <div className="typing-indicator">
@@ -351,14 +425,14 @@ const Minds: React.FC = () => {
       </div>
 
       <AnimatePresence>
-                {showAboutModal && (
-                    <AboutModal 
-                        onClose={() => setShowAboutModal(false)}
-                    />
-                )}
+        {showAboutModal && (
+          <AboutModal onClose={() => setShowAboutModal(false)} />
+        )}
       </AnimatePresence>
 
-      <footer className="footer-note">Conversations stored in MongoDB 🛢️</footer>
+      <footer className="footer-note">
+        Conversations stored in MongoDB 🛢️
+      </footer>
     </div>
   );
 };
