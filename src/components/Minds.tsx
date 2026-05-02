@@ -319,19 +319,6 @@ const Minds: React.FC = () => {
     );
   };
 
-  async function debugGemini() {
-    console.log('🧪 DEBUG GEMINI CLICK');
-
-    //const res = await askAI("Debug", [{ text: "Ping" }]);
-
-    const res = await askAI('Pelos de Gatos', [{ text: 'Hablame de esto en 2 renglones' }]);
-
-    console.log('🧠 DEBUG RESPONSE:', res);
-
-    //Este es el Boton de prueba para Gemini
-    //<button onClick={debugGemini}>🔥 Debug Gemini</button>
-  }
-
   return (
     <div className="app-container">
       <header className="app-header">
