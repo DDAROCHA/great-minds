@@ -128,7 +128,7 @@ const Minds: React.FC = () => {
   const [savedConversations, setSavedConversations] = useState<Conversation[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [typing, setTyping] = useState(false);
-  //const [round, setRound] = useState(0);
+  const [loadingConversations, setLoadingConversations] = useState(true);
 
   const stopRef = useRef(false);
   const messagesRef = useRef<Message[]>(messages);
@@ -140,10 +140,20 @@ const Minds: React.FC = () => {
 
   useEffect(() => {
     async function load() {
-      const conv = await getConversations();
-      console.log('📦 conversations:', conv); // 👈 CLAVE
-      setSavedConversations(conv);
+      try {
+        setLoadingConversations(true);
+
+        const conv = await getConversations();
+
+        setSavedConversations(Array.isArray(conv) ? conv : []);
+      } catch (err) {
+        console.error('Error loading conversations:', err);
+        setSavedConversations([]);
+      } finally {
+        setLoadingConversations(false);
+      }
     }
+
     load();
   }, []);
 
@@ -340,14 +350,23 @@ const Minds: React.FC = () => {
       </header>
 
       <div className="conversation-header">
-        <select onChange={e => handleSelectConversation(e.target.value)} defaultValue="">
-          <option value="">📚 Select a saved conversation...</option>
-          {savedConversations.map(c => (
-            <option key={c._id} value={c._id}>
-              {c.topic} – {c.createdAt ? new Date(c.createdAt).toLocaleString() : ''}
-            </option>
-          ))}
-        </select>
+        {loadingConversations ? (
+          <div className="loading-message">
+            ⏳ Waking up server... this may take a few seconds
+            <div style={{ fontSize: '12px', opacity: 0.6, marginTop: '4px' }}>
+              🟡 First load may take ~30s (free tier server cold start)
+            </div>
+          </div>
+        ) : (
+          <select onChange={e => handleSelectConversation(e.target.value)} defaultValue="">
+            <option value="">📚 Select a saved conversation...</option>
+            {savedConversations.map(c => (
+              <option key={c._id} value={c._id}>
+                {c.topic} – {c.createdAt ? new Date(c.createdAt).toLocaleString() : ''}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       <div className="topic-input">
